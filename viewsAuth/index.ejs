@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Sharing App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 500px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .form {
+      display: grid;
+      gap: 1rem;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px; /* Added margin-top */
+    }
+    input[type="file"],
+    input[type="password"] {
+      border: 1px solid #ccc;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    button[type="submit"] {
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .download-link {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <% if (locals.fileLink != null) { %>
+      <div>
+        Your file is uploaded! Click below to download:
+      </div>
+      <div class="download-link">
+        <a href="<%= locals.fileLink %>"><%= locals.fileLink %></a>
+      </div>
+      <form action="/upload" method="post" class="form" enctype="multipart/form-data">
+        <label for="file">Choose another file to share:</label>
+      <% } else { %>
+        <form action="/upload" method="post" class="form" enctype="multipart/form-data">
+          <label for="file">Choose a file to upload:</label>
+      <% } %>
+      <input type="file" id="file" name="file" required />
+      <label for="password">Set a password (optional):</label>
+      <input type="password" id="password" name="password" />
+      <button type="submit">Share</button>
+    </form>
+  </div>
+</body>
+</html>
